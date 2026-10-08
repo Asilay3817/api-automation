@@ -1,0 +1,9 @@
+allure-results/
+allure-report/
+.venv/
+venv/
+.env
+__pycache__/
+.idea/
+.pytest_cache/
+.DS_Store
