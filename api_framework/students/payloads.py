@@ -15,3 +15,5 @@ class Payloads:
         "phone_no": generate_phone(),
         "status": 1
     }
+
+

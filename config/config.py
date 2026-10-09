@@ -7,4 +7,4 @@ class Config:
     BASE_URL: str = os.getenv("BASE_URL", "")
     TIMEOUT: float = float(os.getenv("TIMEOUT", "15"))
 
-config = Config()
+conf = Config()
