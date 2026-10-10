@@ -8,6 +8,13 @@ class StudentBaseModel(BaseModel):
     phone_no: str
     status: int
 
+    @field_validator("email", "gender", "id", "name", "phone_no", "status")
+    def fields_not_empty(cls, value):
+        if value == "" or value is None:
+            raise ValueError("Field is empty")
+        else:
+            return value
+
 class AllStudentModel(BaseModel):
     status: int
     students: list[StudentBaseModel]

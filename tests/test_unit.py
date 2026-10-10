@@ -1,16 +1,29 @@
-from api_framework.students.get_all_students import AllStudents
-from api_framework.models.student_model import AllStudentModel
-from api_framework.students.create_student import CreateStudent
+import pytest
 from api_framework.models.student_model import StudentCreateUpdateModel
+from api_framework.students.payloads import student_payload
 
-def test_get_student_list():
-    students = AllStudents()
-    response = students.students_list()
-    assert response.status_code == 200, response.json()
-    model = AllStudentModel(**response.json())
 
-def test_create_student():
-    student = CreateStudent()
-    response = student.create_student()
+def test_create_student(students_client):
+    payload = student_payload()
+    response = students_client.create(payload)
     assert response.status_code == 200, response.json()
     model = StudentCreateUpdateModel(**response.json())
+    assert model.student.name == payload["name"]
+    assert model.student.email == payload["email"]
+    assert model.student.gender == payload["gender"]
+    assert model.student.phone_no == payload["phone_no"]
+
+@pytest.mark.parametrize("field", [
+    "email",
+    "gender",
+    "name",
+    "phone_no",
+    "status",
+])
+
+def test_create_student_missing_fields(students_client, field):
+    payload = student_payload()
+    del payload[field]
+
+    response = students_client.create(payload)
+    assert response.status_code == 400, response.json()
