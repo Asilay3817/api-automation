@@ -3,6 +3,7 @@ import random
 
 fake=Faker()
 gender = random.choice(["male", "female"])
+status = random.choice([0, 1])
 
 def generate_phone() -> str:
     return f"+79{random.randint(100000000, 999999999)}"
@@ -13,7 +14,7 @@ def student_payload(**overrides):
         "gender": gender,
         "name": fake.name(),
         "phone_no": generate_phone(),
-        "status": 1
+        "status": status
     }
     payload.update(overrides)
     return payload
