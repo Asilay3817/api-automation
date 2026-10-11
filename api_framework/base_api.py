@@ -1,14 +1,14 @@
 import requests
 import logging
-from config.config import conf
+from config.config import BASE_URL, TIMEOUT
 from utils.helper import Helper
 
 logger = logging.getLogger(__name__)
 
 class BaseClient:
     def __init__(self) -> None:
-        self.base_url = conf.BASE_URL.rstrip("/")
-        self.timeout = conf.TIMEOUT
+        self.base_url = BASE_URL.rstrip("/")
+        self.timeout = TIMEOUT
         self.session = requests.Session()
         self.session.headers.update({
             "Content-Type": "application/json",
