@@ -33,6 +33,11 @@ def test_create_student(students_client):
     assert model_get.student.phone_no == payload["phone_no"]
     assert model_get.student.status == payload["status"]
 
+    delete_response = students_client.delete_by_id(student_id)
+    assert delete_response.status_code == 200, delete_response.json()
+
+
+
 @pytest.mark.parametrize("field", [
     "email",
     "gender",
@@ -60,6 +65,17 @@ def test_update_student(students_client, created_student):
     assert model.student.gender == new_payload["gender"]
     assert model.student.phone_no == new_payload["phone_no"]
     assert model.student.status == new_payload["status"]
+
+    get_response = students_client.get_by_id(student_id)
+    assert get_response.status_code == 200, get_response.json()
+    get_model = StudetUuidModel(**get_response.json())
+    assert get_model.student.name == new_payload["name"]
+    assert get_model.student.email == new_payload["email"]
+    assert get_model.student.gender == new_payload["gender"]
+    assert get_model.student.phone_no == new_payload["phone_no"]
+    assert get_model.student.status == new_payload["status"]
+
+
 
 @pytest.mark.parametrize("field", [
     "email",
