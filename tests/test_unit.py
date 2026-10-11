@@ -43,3 +43,20 @@ def test_update_student(students_client, created_student):
     assert model.student.gender == new_payload["gender"]
     assert model.student.phone_no == new_payload["phone_no"]
     assert model.student.status == new_payload["status"]
+
+@pytest.mark.parametrize("field", [
+    "email",
+    "gender",
+    "name",
+    "phone_no",
+    "status",
+])
+
+def test_update_student_missing_fields(students_client, created_student, field):
+    student_id = created_student["id"]
+    payload = student_payload()
+    del payload[field]
+
+    response = students_client.update(student_id, payload)
+    assert response.status_code == 400, response.json()
+

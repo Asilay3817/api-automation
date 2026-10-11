@@ -5,6 +5,6 @@ load_dotenv()
 
 class Config:
     BASE_URL: str = os.getenv("BASE_URL", "")
-    TIMEOUT: float = float(os.getenv("TIMEOUT", "15"))
+    TIMEOUT: float = float(os.getenv("TIMEOUT", "30"))
 
 conf = Config()
