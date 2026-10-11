@@ -1,6 +1,9 @@
 import requests
+import logging
 from config.config import conf
 from utils.helper import Helper
+
+logger = logging.getLogger(__name__)
 
 class BaseClient:
     def __init__(self) -> None:
@@ -16,7 +19,11 @@ class BaseClient:
     def _request(self, method, endpoint, **kwargs):
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
         kwargs.setdefault("timeout", self.timeout)
+        logger.info("→ %s %s | body=%s", method, url, kwargs.get("json"))
         response = self.session.request(method, url, **kwargs)
+
+        logger.info("← %s %s | status=%s | body=%s",method, url, response.status_code, response.text)
+
         self.helper.attach_response(response)
         return response
 
