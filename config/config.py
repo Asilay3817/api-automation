@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    BASE_URL: str = os.getenv("BASE_URL", "")
-    TIMEOUT: float = float(os.getenv("TIMEOUT", ""))
-    LOG_LEVEL: str = os.getenv("LOG_LEVEL", "")
-    LOG_FILE: str = os.getenv("LOG_FILE", "")
+    BASE_URL: str = os.getenv("BASE_URL", "http://93.77.188.34")
+    TIMEOUT: float = float(os.getenv("TIMEOUT", "15"))
+    LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
+    LOG_FILE: str = os.getenv("LOG_FILE", "logs/test.log")
 
 conf = Config()
 
