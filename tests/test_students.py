@@ -51,9 +51,7 @@ def test_create_student_missing_fields(students_client, field):
 def test_update_student(students_client, created_student):
     student_id = created_student["id"]
     new_payload = student_payload()
-    print("new_payload:", new_payload)
     response = students_client.update(student_id, new_payload)
-    print("получил:", response.json())
     assert response.status_code == 200, response.json()
 
     model = StudentCreateUpdateModel(**response.json())
