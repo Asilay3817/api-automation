@@ -1,7 +1,7 @@
 from pydantic import BaseModel, field_validator
 
 class StudentBaseModel(BaseModel):
-    email: str | None = None
+    email: str
     gender: str
     id: int
     name: str
