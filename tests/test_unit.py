@@ -2,8 +2,15 @@ import pytest
 from api_framework.models.student_model import StudentCreateUpdateModel
 from api_framework.models.student_model import StudetUuidModel
 from api_framework.models.student_model import StudentDeleteModel
+from api_framework.models.student_model import AllStudentModel
 from api_framework.students.payloads import student_payload
 
+def test_get_all_students(students_client):
+    response = students_client.get_all()
+    assert response.status_code == 200, response.json()
+
+    model = AllStudentModel(**response.json())
+    assert model.status == 1, response.json()
 
 def test_create_student(students_client):
     payload = student_payload()
