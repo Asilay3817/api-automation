@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_URL: str = os.getenv("BASE_URL", "")
-TIMEOUT: float = float(os.getenv("TIMEOUT", "15"))
+TIMEOUT: float = float(os.getenv("TIMEOUT", "10"))
 LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
 LOG_FILE: str = os.getenv("LOG_FILE", "logs/test.log")
 
