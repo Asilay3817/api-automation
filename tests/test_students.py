@@ -28,21 +28,13 @@ class TestStudents:
         response = students_client.create(payload)
         assert response.status_code == 200, response.json()
         model = StudentCreateUpdateModel(**response.json())
-        assert model.student.name == payload["name"]
-        assert model.student.email == payload["email"]
-        assert model.student.gender == payload["gender"]
-        assert model.student.phone_no == payload["phone_no"]
-        assert model.student.status == payload["status"]
+        students_client.helper.assert_student_matches(model.student, payload)
 
         student_id = model.student.id
         get_response = students_client.get_by_id(student_id)
         assert get_response.status_code == 200, get_response.json()
         model_get = StudetUuidModel(**get_response.json())
-        assert model_get.student.name == payload["name"]
-        assert model_get.student.email == payload["email"]
-        assert model_get.student.gender == payload["gender"]
-        assert model_get.student.phone_no == payload["phone_no"]
-        assert model_get.student.status == payload["status"]
+        students_client.helper.assert_student_matches(model_get.student, payload)
 
         delete_response = students_client.delete_by_id(student_id)
         assert delete_response.status_code == 200, delete_response.json()
@@ -76,20 +68,12 @@ class TestStudents:
         assert response.status_code == 200, response.json()
 
         model = StudentCreateUpdateModel(**response.json())
-        assert model.student.name == new_payload["name"]
-        assert model.student.email == new_payload["email"]
-        assert model.student.gender == new_payload["gender"]
-        assert model.student.phone_no == new_payload["phone_no"]
-        assert model.student.status == new_payload["status"]
+        students_client.helper.assert_student_matches(model.student, new_payload)
 
         get_response = students_client.get_by_id(student_id)
         assert get_response.status_code == 200, get_response.json()
         get_model = StudetUuidModel(**get_response.json())
-        assert get_model.student.name == new_payload["name"]
-        assert get_model.student.email == new_payload["email"]
-        assert get_model.student.gender == new_payload["gender"]
-        assert get_model.student.phone_no == new_payload["phone_no"]
-        assert get_model.student.status == new_payload["status"]
+        students_client.helper.assert_student_matches(get_model.student, new_payload)
 
 
     @allure.story("Update Student With Missing Fields")
