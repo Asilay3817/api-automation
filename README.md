@@ -18,5 +18,5 @@
 - utils.helper - прикрепление ответов к Allure
 
 ## Запуск
-- pytest - запуск тесто и генерация allure-results
+- pytest - запуск тестов и генерация allure-results
 - allure serve allure-results - открытие отчета
