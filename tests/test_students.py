@@ -13,7 +13,7 @@ class TestStudents:
 
     @allure.story("Get All Students")
     @pytest.mark.regress
-    def test_get_all_students(students_client):
+    def test_get_all_students(self, students_client):
         response = students_client.get_all()
         assert response.status_code == 200, response.json()
 
@@ -23,7 +23,7 @@ class TestStudents:
 
     @allure.story("Create Student")
     @pytest.mark.regress
-    def test_create_student(students_client):
+    def test_create_student(self, students_client):
         payload = student_payload()
         response = students_client.create(payload)
         assert response.status_code == 200, response.json()
@@ -51,7 +51,7 @@ class TestStudents:
     ])
 
 
-    def test_create_student_missing_fields(students_client, field):
+    def test_create_student_missing_fields(self, students_client, field):
         payload = student_payload()
         del payload[field]
 
@@ -61,7 +61,7 @@ class TestStudents:
 
     @allure.story("Update Student")
     @pytest.mark.regress
-    def test_update_student(students_client, created_student):
+    def test_update_student(self, students_client, created_student):
         student_id = created_student["id"]
         new_payload = student_payload()
         response = students_client.update(student_id, new_payload)
@@ -87,7 +87,7 @@ class TestStudents:
     ])
 
 
-    def test_update_student_missing_fields(students_client, created_student, field):
+    def test_update_student_missing_fields(self, students_client, created_student, field):
         student_id = created_student["id"]
         payload = student_payload()
         del payload[field]
@@ -98,14 +98,14 @@ class TestStudents:
 
     @allure.story("Get student by invalid id")
     @pytest.mark.regress
-    def test_get_student_invalid_id(students_client):
+    def test_get_student_invalid_id(self, students_client):
         response = students_client.get_by_id(9999999)
         assert response.status_code in (400, 404), response.json()
 
 
     @allure.story("Delete student")
     @pytest.mark.regress
-    def test_delete_student(students_client):
+    def test_delete_student(self, students_client):
         payload = student_payload()
         create_response = students_client.create(payload)
         assert create_response.status_code == 200, create_response.json()
@@ -118,6 +118,3 @@ class TestStudents:
 
         get_response = students_client.get_by_id(create_model.student.id)
         assert get_response.status_code in (400, 404), get_response.json()
-
-
-
